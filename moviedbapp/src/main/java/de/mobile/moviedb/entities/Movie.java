@@ -13,8 +13,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "movie")
-@NamedQueries(
-        @NamedQuery(name = Movie.FIND_ALL_QUERY, query = "SELECT m FROM Movie m"))
+@NamedQueries({
+    @NamedQuery(name = Movie.FIND_ALL_QUERY, query = "SELECT m FROM Movie m"),
+    @NamedQuery(name = "Movie.findByTitle", query = "SELECT m FROM Movie m WHERE m.title like '%:title'"),
+    @NamedQuery(name = "Movie.findByGenre", query = "SELECT m FROM Movie m WHERE m.genre in (:genrelist)"),
+    @NamedQuery(name = "Movie.findByYear", query = "SELECT m FROM Movie m WHERE m.year in (:yearlist)")
+})
 public class Movie {
 
     public static final String FIND_ALL_QUERY = "Movie.findAll";
